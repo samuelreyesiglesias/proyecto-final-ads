@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block titulo %}Gestión de Estudiantes{% endblock %}
+
+{% block contenido %}
+<div class="max-w-7xl mx-auto px-6 py-12 space-y-16">
+
+  <!-- Encabezado -->
+  <div class="text-center xyz-in fade-down duration-10 ease-out">
+    <h1 class="text-4xl font-extrabold text-blue-700 tracking-tight">Gestión de Estudiantes</h1>
+    <p class="mt-2 text-lg text-gray-600">Registra y administra la información académica de los estudiantes.</p>
+  </div>
+
+  <!-- Formulario de Registro -->
+  <section class="bg-white rounded-3xl shadow-2xl p-10 xyz-in fade-left duration-10 ease-out ring-1 ring-gray-200">
+    <div class="mb-6 border-b pb-4 flex items-center justify-between">
+      <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+        <span class="material-symbols-outlined text-blue-600">group_add</span>
+        Nuevo Estudiante
+      </h2>
+      <span class="text-sm text-gray-500 hidden sm:inline">Todos los campos son obligatorios</span>
+    </div>
+
+    <form method="POST" action="/estudiantes/agregar" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div>
+        <label for="nombre" class="block text-base font-semibold text-gray-700 mb-1">Nombre completo</label>
+        <input type="text" name="nombre" id="nombre" required placeholder="Ej: Juan Rivera"
+          class="w-full px-4 py-2 rounded-lg bg-gray-50 border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none shadow-sm text-lg" />
+      </div>
+
+      <div>
+        <label for="grado" class="block text-base font-semibold text-gray-700 mb-1">Grado</label>
+        <input type="text" name="grado" id="grado" required placeholder="Ej: 1er Grado"
+          class="w-full px-4 py-2 rounded-lg bg-gray-50 border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none shadow-sm text-lg" />
+      </div>
+
+      <div class="md:col-span-2 lg:col-span-3 text-right">
+        <button type="submit"
+          class="mt-8 inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 transition focus:ring-2 focus:ring-offset-2 focus:ring-blue-400 text-lg">
+          <span class="material-symbols-outlined">save</span> Registrar estudiante
+        </button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Tabla de Estudiantes -->
+  <section class="xyz-in fade-up duration-10 ease-out">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">Estudiantes registrados</h2>
+
+    <div class="overflow-x-auto shadow-2xl rounded-2xl border border-gray-200 bg-white ring-1 ring-blue-50">
+      <table class="min-w-full text-sm text-gray-900 font-medium divide-y divide-gray-200">
+        <thead class="bg-blue-100 text-blue-900 uppercase text-xs font-bold tracking-wider">
+          <tr>
+            <th scope="col" class="px-6 py-4 text-left">ID</th>
+            <th scope="col" class="px-6 py-4 text-left">Nombre</th>
+            <th scope="col" class="px-6 py-4 text-left">Grado</th>
+            <th scope="col" class="px-6 py-4 text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          {% for e in estudiantes %}
+          <tr class="hover:bg-gray-50 transition duration-200 xyz-in fade-up small stagger">
+            <td class="px-6 py-4">{{ e.id_estudiante }}</td>
+            <td class="px-6 py-4">{{ e.nombre }}</td>
+            <td class="px-6 py-4">{{ e.grado }}</td>
+            <td class="px-6 py-4 text-center">
+              <div class="flex justify-center gap-2">
+                <a href="/estudiantes/editar/{{ e.id_estudiante }}"
+                   class="group inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 hover:shadow focus:ring-2 focus:ring-blue-400 transition-all duration-200">
+                  <span class="material-symbols-outlined text-[20px] group-hover:scale-110">edit</span>
+                  <span class="hidden sm:inline">Editar</span>
+                </a>
+                <form method="POST" action="/estudiantes/eliminar/{{ e.id_estudiante }}" onsubmit="return confirm('¿Estás seguro de eliminar este estudiante?')" class="inline-block">
+                  <button type="submit"
+                          class="group inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-semibold text-red-700 bg-red-50 hover:bg-red-100 hover:shadow focus:ring-2 focus:ring-red-400 transition-all duration-200">
+                    <span class="material-symbols-outlined text-[20px] group-hover:scale-110">delete</span>
+                    <span class="hidden sm:inline">Eliminar</span>
+                  </button>
+                </form>
+              </div>
+            </td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="4" class="px-6 py-6 text-center text-gray-500">No hay estudiantes registrados.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+{% endblock %}

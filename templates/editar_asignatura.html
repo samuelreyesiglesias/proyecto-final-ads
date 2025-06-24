@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block titulo %}Editar Estudiante{% endblock %}
+
+{% block contenido %}
+<div class="max-w-3xl mx-auto px-6 py-12">
+
+  <!-- Encabezado -->
+  <div class="text-center mb-10 animate-fade-in-down">
+    <h1 class="text-4xl font-extrabold text-blue-700">Editar Estudiante</h1>
+    <p class="mt-2 text-lg text-gray-600">Modificá los datos necesarios y guardá los cambios.</p>
+  </div>
+
+  <!-- Formulario -->
+  <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-200 animate-fade-in-up">
+    <form method="POST" action="/asignaturas/actualizar/{{ asignatura.id_asignatura }}" class="space-y-6">
+
+       <div>
+        <label for="nombre" class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+        <input type="text" name="nombre" id="nombre" required placeholder="Ej: Matemática General" value="{{ asignatura.nombre }}"
+          class="w-full rounded-md border-gray-300 bg-gray-50 px-4 py-2 focus:ring-2 focus:ring-blue-500" />
+      </div>
+
+      <div>
+        <label for="codigo" class="block text-sm font-medium text-gray-700 mb-1">Código</label>
+        <input type="text" name="codigo" id="codigo" required placeholder="Ej: MAT101" value="{{ asignatura.codigo }}"
+          class="w-full rounded-md border-gray-300 bg-gray-50 px-4 py-2 focus:ring-2 focus:ring-blue-500" />
+      </div>
+
+      <div>
+        <!-- <label for="tipo" class="block text-sm font-medium text-gray-700 mb-1">Tipo</label>
+        <select name="tipo" id="tipo"
+          class="w-full rounded-md border-gray-300 bg-white px-4 py-2 focus:ring-2 focus:ring-blue-500">
+          <option value="obligatoria">Obligatoria</option>
+          <option value="optativa">Optativa</option>
+        </select> -->
+        <label for="tipo" class="block text-sm font-medium text-gray-700 mb-1">Tipo</label>
+        <select name="tipo" id="tipo"
+          class="w-full rounded-md border-gray-300 bg-white px-4 py-2 focus:ring-2 focus:ring-blue-500">
+          <option value="obligatoria" {% if asignatura.tipo == 'obligatoria' %}selected{% endif %}>Obligatoria</option>
+          <option value="optativa" {% if asignatura.tipo == 'optativa' %}selected{% endif %}>Optativa</option>
+      </div>
+ 
+      <div>
+        <label for="area" class="block text-sm font-medium text-gray-700 mb-1">Área</label>
+        <input type="text" name="area" id="area" required placeholder="Ej: Ciencias Básicas" value="{{ asignatura.area }}"
+          class="w-full rounded-md border-gray-300 bg-gray-50 px-4 py-2 focus:ring-2 focus:ring-blue-500" />
+      </div>
+
+
+      <!-- Botones -->
+      <div class="flex justify-between items-center pt-6">
+        <a href="/estudiantes"
+          class="inline-flex items-center gap-2 text-gray-600 hover:text-gray-800 transition text-sm">
+          <span class="material-symbols-outlined">arrow_back</span> Cancelar
+        </a>
+        <button type="submit"
+          class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-400">
+          <span class="material-symbols-outlined">save</span> Guardar cambios
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
+{% endblock %}

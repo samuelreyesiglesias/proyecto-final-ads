@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block titulo %}Dashboard Académico{% endblock %}
+
+{% block contenido %}
+<div class="max-w-screen-xl mx-auto px-6 py-12 space-y-14">
+
+ <!-- Encabezado mejorado -->
+<div class="relative bg-gradient-to-r from-blue-50 to-blue-100 p-10 rounded-3xl shadow-lg text-center overflow-hidden animate-fade-in-down">
+
+  <!-- Fondo decorativo sutil -->
+  <div class="absolute inset-0 opacity-10 pointer-events-none select-none bg-[url('/static/pattern-academico.svg')] bg-center bg-cover"></div>
+
+  <!-- Título principal -->
+  <h1 class="relative z-10 text-4xl md:text-5xl font-extrabold text-blue-800 tracking-tight leading-tight drop-shadow-sm">
+    Bienvenido al <span class="text-blue-600">Sistema Académico</span>
+  </h1>
+
+  <!-- Subtítulo -->
+  <p class="relative z-10 mt-4 text-lg md:text-xl text-gray-700 max-w-2xl mx-auto">
+    Administra estudiantes, asignaturas, notas y asistencia en un solo lugar, de forma rápida y eficiente.
+  </p>
+
+  <!-- Línea decorativa inferior -->
+  <div class="relative z-10 mt-6 mx-auto w-24 h-1 bg-blue-500 rounded-full"></div>
+</div>
+
+
+  <!-- Logo -->
+  <div class="flex justify-center p-0">
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo del sistema" width="300" class=" p-0 opacity-90 hover:scale-105 transition duration-300 ease-in-out">
+  </div>
+
+  <!-- Tarjetas de navegación -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 animate-fade-in-up">
+
+    {% set cards = [
+      {'url': '/usuarios', 'icon': 'group', 'color': 'blue', 'title': 'Usuarios', 'desc': 'Administrar cuentas de acceso'},
+      {'url': '/estudiantes', 'icon': 'school', 'color': 'green', 'title': 'Estudiantes', 'desc': 'Gestión de registros estudiantiles'},
+      {'url': '/asignaturas', 'icon': 'menu_book', 'color': 'purple', 'title': 'Asignaturas', 'desc': 'Crear y consultar materias'},
+      {'url': '/calificaciones', 'icon': 'bar_chart', 'color': 'red', 'title': 'Calificaciones', 'desc': 'Registro de notas académicas'},
+      {'url': '/asistencias', 'icon': 'event_available', 'color': 'yellow', 'title': 'Asistencias', 'desc': 'Control de asistencia por clase'},
+      {'url': '/logout', 'icon': 'logout', 'color': 'gray', 'title': 'Cerrar sesión', 'desc': 'Salir del sistema'}
+    ] %}
+
+    {% for card in cards %}
+    <a href="{{ card.url }}"
+       class="bg-white border border-gray-200 p-6 rounded-2xl shadow-md hover:shadow-xl transform hover:scale-[1.02] transition duration-300 group">
+      <div class="flex items-center space-x-4">
+        <span class="material-symbols-outlined text-{{ card.color }}-600 text-[36px] drop-shadow-sm">
+          {{ card.icon }}
+        </span>
+        <div>
+          <h2 class="text-xl font-bold text-gray-800 group-hover:text-{{ card.color }}-700">{{ card.title }}</h2>
+          <p class="text-sm text-gray-500">{{ card.desc }}</p>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+
+  </div>
+</div>
+{% endblock %}

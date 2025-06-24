@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block titulo %}Editar Usuario{% endblock %}
+
+{% block contenido %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+  <div class="bg-white rounded-2xl shadow-xl p-8 xyz-in fade-left duration-10 ease-out">
+    <div class="mb-6 border-b pb-4 flex items-center justify-between">
+      <h2 class="text-2xl font-semibold text-gray-800 flex items-center gap-2">
+        <span class="material-symbols-outlined text-blue-600">edit</span>
+        Editar Usuario
+      </h2>
+      <a href="/usuarios" class="text-sm text-blue-600 hover:underline">← Volver a la lista</a>
+    </div>
+
+    <form method="POST" action="/usuarios/actualizar" class="grid gap-6 md:grid-cols-2">
+      <div>
+        <label for="nombre" class="block text-sm font-medium text-gray-700 mb-1">Nombre completo</label>
+        <input type="text" name="nombre" id="nombre" required value="{{ usuario.nombre_usuario }}"
+          class="w-full rounded-md border border-gray-300 px-4 py-2 bg-gray-50 focus:ring-2 focus:ring-blue-500" />
+      </div>
+
+      <div>
+        <label for="carnet" class="block text-sm font-medium text-gray-700 mb-1">Carnet</label>
+        <input type="text" name="carnet" id="carnet" required value="{{ usuario.carnet }}"
+          class="w-full rounded-md border border-gray-300 px-4 py-2 bg-gray-50 focus:ring-2 focus:ring-blue-500" />
+      </div>
+
+      <div>
+        <label for="contrasena" class="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
+        <input type="password" name="contrasena" id="contrasena" required placeholder="Nueva contraseña"
+          class="w-full rounded-md border border-gray-300 px-4 py-2 bg-gray-50 focus:ring-2 focus:ring-blue-500" />
+      </div>
+
+      <div>
+        <label for="rol" class="block text-sm font-medium text-gray-700 mb-1">Rol</label>
+        <select name="rol" id="rol"
+          class="w-full rounded-md border border-gray-300 px-4 py-2 bg-white focus:ring-2 focus:ring-blue-500">
+          <option value="admin" {% if usuario.rol == 'admin' %}selected{% endif %}>Administrador</option>
+          <option value="docente" {% if usuario.rol == 'docente' %}selected{% endif %}>Docente</option>
+          <option value="estudiante" {% if usuario.rol == 'estudiante' %}selected{% endif %}>Estudiante</option>
+        </select>
+        <input type="hidden" name="id_usuario" value="{{ usuario.id_usuario }}">
+      </div>
+
+      <div class="md:col-span-2 text-right">
+        <button type="submit"
+          class="mt-6 inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-700 transition focus:ring-2 focus:ring-offset-2 focus:ring-blue-400">
+          <span class="material-symbols-outlined">save</span>
+          Guardar cambios
+        </button>
+      </div>
+    </form>
+  </div>
+
+</div>
+{% endblock %}

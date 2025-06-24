@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block titulo %}Editar Asistencia{% endblock %}
+
+{% block contenido %}
+<div class="max-w-4xl mx-auto px-6 py-12">
+
+  <!-- Encabezado -->
+  <div class="text-center xyz-in fade-down duration-10 ease-out mb-10">
+    <h1 class="text-3xl font-extrabold text-blue-700">Editar Asistencia</h1>
+    <p class="mt-2 text-gray-600 text-base">Actualiza la información de asistencia del estudiante.</p>
+  </div>
+
+  <!-- Formulario -->
+  <section class="bg-white rounded-3xl shadow-2xl p-10 xyz-in fade-left duration-10 ease-out ring-1 ring-gray-200">
+    <form method="POST" action="/asistencias/actualizar/{{ asistencia.id_asistencia }}" class="space-y-8">
+
+      <!-- Campo: Estudiante (solo lectura) -->
+      <div>
+        <label for="estudiante" class="block text-sm font-medium text-gray-700 mb-1">Estudiante</label>
+        <input type="text" id="estudiante" name="estudiante" value="{{ estudiantes[0].nombre }}" readonly
+               class="w-full bg-gray-100 text-gray-700 border border-gray-300 rounded-lg px-4 py-2 text-base cursor-not-allowed" />
+      </div>
+ 
+      <!-- Campo: Fecha -->
+      <div>
+        <label for="fecha" class="block text-sm font-medium text-gray-700 mb-1">Fecha</label>
+        <input type="date" id="fecha" name="fecha" value="{{ asistencia.fecha }}"
+               class="w-full rounded-lg border border-gray-300 px-4 py-2 bg-gray-50 focus:ring-2 focus:ring-blue-500 text-gray-900 text-base" required />
+      </div>
+
+      <!-- Campo: Estado (Presente o Ausente) -->
+      <div>
+        <label for="presente" class="block text-sm font-medium text-gray-700 mb-1">Estado</label>
+        <select id="presente" name="presente" required
+                class="w-full rounded-lg border border-gray-300 px-4 py-2 bg-white focus:ring-2 focus:ring-blue-500 text-base text-gray-900">
+          <option value="1" {% if asistencia.presente == 1 %}selected{% endif %}>Presente</option>
+          <option value="0" {% if asistencia.presente == 0 %}selected{% endif %}>Ausente</option>
+        </select>
+      </div>
+
+      <!-- Botón Guardar -->
+      <div class="text-right">
+        <button type="submit"
+                class="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-700 transition focus:ring-2 focus:ring-offset-2 focus:ring-blue-400">
+          <span class="material-symbols-outlined">save</span>
+          Guardar cambios
+        </button>
+      </div>
+    </form>
+  </section>
+</div>
+{% endblock %}
